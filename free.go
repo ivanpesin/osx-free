@@ -145,7 +145,10 @@ func main() {
 	pagesCompRes := toInt(reGrp("Pages occupied by compressor: \\s*(\\d+)", vmStat, 1), "pagesCompRes")
 	filePages := toInt(reGrp("File-backed pages: \\s*(\\d+)", vmStat, 1), "filePages")
 
-	compRatio := (pagesCompSrc - pagesCompRes) * 100 / pagesCompSrc
+    compRatio := 0
+    if (pagesCompSrc > 0) {
+    	compRatio = (pagesCompSrc - pagesCompRes) * 100 / pagesCompSrc
+    }
 
 	hwMemSize := execOutput("sysctl", "-n", "hw.memsize")
 	memSize := toInt(strings.Trim(hwMemSize, " \n"), "hw.memsize")

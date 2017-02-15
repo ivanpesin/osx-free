@@ -145,10 +145,10 @@ func main() {
 	pagesCompRes := toInt(reGrp("Pages occupied by compressor: \\s*(\\d+)", vmStat, 1), "pagesCompRes")
 	filePages := toInt(reGrp("File-backed pages: \\s*(\\d+)", vmStat, 1), "filePages")
 
-    compRatio := 0
-    if (pagesCompSrc > 0) {
-        compRatio = (pagesCompSrc - pagesCompRes) * 100 / pagesCompSrc
-    }
+	compRatio := 0
+	if pagesCompSrc > 0 {
+		compRatio = (pagesCompSrc - pagesCompRes) * 100 / pagesCompSrc
+	}
 
 	memoryPressure := execOutput("memory_pressure")
 	memFreePct := toInt(reGrp("System-wide memory free percentage: (\\d+)%", memoryPressure, 1), "memFreePct")
@@ -162,6 +162,11 @@ func main() {
 	swapTotal := int(toFloat(reGrp("total = (\\S+)M", swapUsage, 1), "swapTotal") * 1024 * 1024)
 	swapUsed := int(toFloat(reGrp("used = (\\S+)M", swapUsage, 1), "swapUsed") * 1024 * 1024)
 	swapFree := int(toFloat(reGrp("free = (\\S+)M", swapUsage, 1), "swapFree") * 1024 * 1024)
+
+	swapRatio := 0
+	if swapTotal > 0 {
+		swapRatio = swapUsed * 100 / swapTotal
+	}
 
 	// output
 	fmt.Printf("              total        used        free      appmem       wired   compressed (ratio)\n")
@@ -190,6 +195,7 @@ func main() {
 	fmt.Print(scaleSize(swapTotal, unitPower, pofmt))
 	fmt.Print(scaleSize(swapUsed, unitPower, pofmt))
 	fmt.Print(scaleSize(swapFree, unitPower, pofmt))
+	fmt.Printf(" %17s  %3d%%", "| swap usage:", swapRatio)
 	fmt.Println()
 
 }

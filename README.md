@@ -19,7 +19,7 @@ Swap:          1024         170         854
 
 ## Screenshot
 
-(screenshot.png)
+![screenshot of free vs Activity Monitor](https://github.com/ivanpesin/osx-free/blob/master/screenshot.png?raw=true)
 
 ## Options
 

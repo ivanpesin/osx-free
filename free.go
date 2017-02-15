@@ -147,8 +147,12 @@ func main() {
 
     compRatio := 0
     if (pagesCompSrc > 0) {
-    	compRatio = (pagesCompSrc - pagesCompRes) * 100 / pagesCompSrc
+        compRatio = (pagesCompSrc - pagesCompRes) * 100 / pagesCompSrc
     }
+
+	memoryPressure := execOutput("memory_pressure")
+	memFreePct := toInt(reGrp("System-wide memory free percentage: (\\d+)%", memoryPressure, 1), "memFreePct")
+	memPress := 100 - memFreePct
 
 	hwMemSize := execOutput("sysctl", "-n", "hw.memsize")
 	memSize := toInt(strings.Trim(hwMemSize, " \n"), "hw.memsize")
@@ -178,6 +182,7 @@ func main() {
 	fmt.Printf("%-19s", "+/- Cache:")
 	fmt.Print(scaleSize(memSize-(pagesFree+filePages+pagesPurgeable)*pageSize, unitPower, pofmt))
 	fmt.Print(scaleSize((pagesFree+filePages+pagesPurgeable)*pageSize, unitPower, pofmt))
+	fmt.Printf(" %17s  %3d%%", "|mempressure:", memPress)
 	//fmt.Printf("  (%.2f%s fcache + %.2f%s purgeable)", filePages*pageSize/unit, unitName, pagesPurgeable*pageSize/unit, unitName)
 	fmt.Println()
 	// 3rd line

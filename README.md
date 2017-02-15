@@ -17,6 +17,10 @@ Mem:           8192        8175          17        3000        1701   5225 -> 21
 Swap:          1024         170         854
 ```
 
+## Screenshot
+
+(screenshot.png)
+
 ## Options
 
 ```

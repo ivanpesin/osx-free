@@ -184,11 +184,4 @@ func main() {
 	fmt.Print(scaleSize(swapFree, unitPower, pofmt))
 	fmt.Println()
 
-	_ = ofmt
-	_ = pageSize
-	_ = pagesFree
-	_ = anonPages
-	_ = pagesWired
-	_ = pagesPurgeable
-	_ = compRatio
 }

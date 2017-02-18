@@ -154,6 +154,9 @@ func main() {
 	memFreePct := toInt(reGrp("System-wide memory free percentage: (\\d+)%", memoryPressure, 1), "memFreePct")
 	memPress := 100 - memFreePct
 
+	sysctlPressureLevel := execOutput("sysctl", "-n", "kern.memorystatus_vm_pressure_level")
+	pressureLevel := toInt(strings.Trim(sysctlPressureLevel, " \n"), "kern.memorystatus_vm_pressure_level")
+
 	hwMemSize := execOutput("sysctl", "-n", "hw.memsize")
 	memSize := toInt(strings.Trim(hwMemSize, " \n"), "hw.memsize")
 
@@ -188,6 +191,16 @@ func main() {
 	fmt.Print(scaleSize(memSize-(pagesFree+filePages+pagesPurgeable)*pageSize, unitPower, pofmt))
 	fmt.Print(scaleSize((pagesFree+filePages+pagesPurgeable)*pageSize, unitPower, pofmt))
 	fmt.Printf(" %17s  %3d%%", "|mempressure:", memPress)
+	switch pressureLevel {
+	case 1:
+		fmt.Printf(", normal")
+	case 2:
+		fmt.Printf(", warning")
+	case 3:
+		fmt.Printf(", critical")
+	default:
+		fmt.Printf(", unknown")
+	}
 	//fmt.Printf("  (%.2f%s fcache + %.2f%s purgeable)", filePages*pageSize/unit, unitName, pagesPurgeable*pageSize/unit, unitName)
 	fmt.Println()
 	// 3rd line

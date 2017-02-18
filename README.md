@@ -7,14 +7,14 @@ Equivalent of 'free' command for macos.
 ```
 $ free
               total        used        free      appmem       wired   compressed (ratio)
-Mem:          8.00G       7.98G      16.29M       2.92G       1.66G   5.12G -> 2.12G (58%)
-+/- Cache:                6.71G       1.29G
-Swap:      1024.00M     170.00M     854.00M
-$ free -m
+Mem:          8.00G       5.63G       2.37G       2.15G       1.45G   2.37G -> 908.09M (62%)
++/- Cache:                4.49G       3.51G     |mempressure:   30%, normal
+Swap:         2.00G     349.50M       1.66G     | swap usage:   17%
+free -m
               total        used        free      appmem       wired   compressed (ratio)
-Mem:           8192        8175          17        3000        1701   5225 -> 2167 (58%)
-+/- Cache:                 6876        1316
-Swap:          1024         170         854
+Mem:           8192        5888        2304        2323        1482   2419 -> 907 (62%)
++/- Cache:                 4720        3472     |mempressure:   30%, normal
+Swap:          2048         350        1698     | swap usage:   17%
 ```
 
 ## Screenshot

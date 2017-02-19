@@ -1,6 +1,6 @@
 # osx-free
 
-Equivalent of 'free' command for macos.
+Equivalent of 'free' command for macos. Displays the total amount of free and used physical and swap memory in the system, amount of memory used by applications, wired memory, and compressed memory. In addition, command shows current memory pressure percentage and level.
 
 ## Example
 
